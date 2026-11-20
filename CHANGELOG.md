@@ -20,3 +20,11 @@
 
 ## 0.3.1 — 2026-11-20
 - 修复：Flutter 用 git 依赖时，中文 Windows 上 `flutter pub get` 解析 ad_hub 的 pubspec 失败（description 改成纯英文）。v0.3.0 的 Flutter git 依赖不可用，请直接用 v0.3.1
+
+## 0.4.0 — 2026-11-20
+- 新增去广告开关：Unity `AdHub.SetAdsRemoved(bool)` / `AdHub.AdsRemoved`，Flutter `AdHub.setAdsRemoved(bool)` / `AdHub.adsRemoved`（ValueNotifier）
+  - true 时插屏、横幅、开屏都被拦下（blocked 原因"已购买去广告"），**激励照常**；已显示的横幅立刻隐藏（Flutter 的 AdHubBanner 自动消失）
+  - 记在本地（PlayerPrefs / SharedPreferences `adhub.ads_removed`），下次启动在内购初始化前就生效
+  - 新事件 `ads_removed`（message = true/false）
+  - IapHub（iap-hub 仓库）买了/恢复/收回去广告时会自动调用，项目不用自己接
+- Flutter 加单元测试 `test/ads_removed_test.dart`

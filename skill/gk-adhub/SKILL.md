@@ -72,8 +72,11 @@ Flutter 正式用 git 依赖锁 tag（见 `references/flutter.md`）；只有在
 | 开屏（冷启动） | `AdHub.ShowAppOpen("p", shown => EnterGame(), waitLoadSec: 3)` | `await AdHub.showAppOpen('p', waitLoad: Duration(seconds: 3)); enterGame();` |
 | 开屏（回前台） | `AdHub.EnableAppOpenOnResume("p")` | `AdHub.enableAppOpenOnResume('p')` |
 | 统一埋点 | `AdHub.OnEvent += e => ...` | `AdHub.events.listen((e) => ...)` |
+| 去广告（买了去广告/VIP） | `AdHub.SetAdsRemoved(true)` | `AdHub.setAdsRemoved(true)` |
 
 埋点：把 `revenue` 事件（value + currency + network + placement）转发到项目的统计（Firebase `ad_impression` 等），其余事件按需。团队收益汇总依赖这个，**每个项目都要接**。
+
+去广告：项目接了 IapHub（iap-hub 仓库）就**不用自己调**，买了 no_ads 会自动关插屏/横幅/开屏、激励照常；没接 IapHub 的项目在自己的内购成功回调里调 `SetAdsRemoved(true)`。不要在业务代码里自己写"买了去广告就不调 ShowInterstitial"的判断。
 
 ### 第 5 步：验证
 - 跑起来看日志 `[AdHub]`：配置有没有读到、每个广告位 show/closed/reward/revenue。

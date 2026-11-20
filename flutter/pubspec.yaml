@@ -1,6 +1,6 @@
 name: ad_hub
 description: "Team ad module AdHub: AdMob / AppLovin MAX with shared config, frequency capping and unified events."
-version: 0.3.1
+version: 0.4.0
 publish_to: none
 
 environment:
@@ -15,4 +15,6 @@ dependencies:
   shared_preferences: ^2.2.0
 
 dev_dependencies:
+  flutter_test:
+    sdk: flutter
   flutter_lints: ^5.0.0

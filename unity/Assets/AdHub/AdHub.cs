@@ -8,6 +8,7 @@
 //   AdHub.ShowAppOpen("cold_start", shown => EnterGame(), waitLoadSec: 3);   // 冷启动开屏
 //   AdHub.EnableAppOpenOnResume("app_resume");                               // 回前台开屏
 //   AdHub.OnEvent += e => MyAnalytics.Log(e);
+//   AdHub.SetAdsRemoved(true);   // 玩家买了去广告（IapHub 0.1+ 会自动调用）：插屏/横幅/开屏不再出，激励照常
 using System;
 using UnityEngine;
 
@@ -15,13 +16,36 @@ namespace AdHubKit
 {
     public static class AdHub
     {
-        public const string Version = "0.3.1";
+        public const string Version = "0.4.0";
         const string ConfigResource = "adhub_config"; // Assets/Resources/adhub_config.json
 
         public static event Action<AdEvent> OnEvent;
         public static event Action OnReady;
         public static bool IsReady { get; private set; }
         public static AdHubConfig Config { get; private set; }
+
+        const string AdsRemovedKey = "adhub.ads_removed";
+        /// <summary>玩家是否买了去广告。true 时插屏、横幅、开屏都不出（激励照常，玩家自己点的）。记在本地，下次启动仍生效。</summary>
+        public static bool AdsRemoved
+        {
+            get { if (adsRemoved == null) adsRemoved = PlayerPrefs.GetInt(AdsRemovedKey, 0) == 1; return adsRemoved.Value; }
+            private set => adsRemoved = value;
+        }
+        static bool? adsRemoved;   // 懒加载：静态初始化时不能调 PlayerPrefs
+
+        /// <summary>
+        /// 买了去广告/VIP 后调用（IapHub 会自动调用，不用自己接）。true：立刻隐藏横幅，之后插屏/横幅/开屏都被拦下，原因"已购买去广告"。
+        /// 传 false 恢复（如退款后 IapHub 收回权益）。
+        /// </summary>
+        public static void SetAdsRemoved(bool removed)
+        {
+            if (AdsRemoved == removed) return;
+            AdsRemoved = removed;
+            PlayerPrefs.SetInt(AdsRemovedKey, removed ? 1 : 0);
+            PlayerPrefs.Save();
+            if (removed) provider?.HideBanner();
+            Emit(new AdEvent { type = "ads_removed", network = provider?.Name, message = removed ? "true" : "false" });
+        }
 
         static IAdProvider provider;
         static FrequencyCapper capper;
@@ -224,6 +248,7 @@ namespace AdHubKit
             if (p == null) return "配置里没有这个广告位（先在 ad-hub 仓库 config 里加）";
             fmt = p.Format;
             if (!p.enabled) return "广告位已关闭";
+            if (AdsRemoved && fmt != AdFormat.Rewarded) return "已购买去广告";
             return capper.Check(p);
         }
 

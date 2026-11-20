@@ -101,7 +101,7 @@ namespace AdHubKit
     /// <summary>统一埋点事件。项目在 AdHub.OnEvent 里转发给自己的统计（Firebase 等）。</summary>
     public struct AdEvent
     {
-        // load_failed / blocked / show / show_failed / click / closed / reward / revenue
+        // load_failed / blocked / show / show_failed / click / closed / reward / revenue / ads_removed（message=true/false）
         public string type;
         public string placement;
         public AdFormat format;

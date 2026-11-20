@@ -24,5 +24,8 @@ class _AdHubBannerState extends State<AdHubBanner> {
   }
 
   @override
-  Widget build(BuildContext context) => _child ?? const SizedBox.shrink();
+  Widget build(BuildContext context) => ValueListenableBuilder<bool>(
+        valueListenable: AdHub.adsRemoved,   // 买了去广告 → 横幅立刻消失
+        builder: (_, removed, __) => removed ? const SizedBox.shrink() : (_child ?? const SizedBox.shrink()),
+      );
 }

@@ -6,6 +6,7 @@
 //   await AdHub.showAppOpen('cold_start', waitLoad: const Duration(seconds: 3)); goHome();  // 冷启动开屏
 //   AdHub.enableAppOpenOnResume('app_resume');                                             // 回前台开屏
 //   AdHub.events.listen((e) => analytics.log(e));
+//   AdHub.setAdsRemoved(true);   // 玩家买了去广告（IapHub 会自动调用）：插屏/横幅/开屏不再出，激励照常
 import 'dart:async';
 import 'dart:convert';
 
@@ -22,7 +23,7 @@ import 'provider.dart';
 
 class AdHub {
   AdHub._();
-  static const version = '0.3.1';
+  static const version = '0.4.0';
   static const defaultAsset = 'assets/adhub_config.json';
 
   static final _events = StreamController<AdEvent>.broadcast();
@@ -49,11 +50,26 @@ class AdHub {
   static DateTime? _hiddenAt;
   static bool _hiddenByAd = false;
 
+  static const _adsRemovedKey = 'adhub.ads_removed';
+
+  /// 玩家是否买了去广告。true 时插屏、横幅、开屏都不出（激励照常）。记在本地，下次启动仍生效。
+  /// AdHubBanner 监听它，变成 true 时已显示的横幅立刻消失。
+  static final ValueNotifier<bool> adsRemoved = ValueNotifier<bool>(false);
+
+  /// 买了去广告/VIP 后调用（IapHub 会自动调用）；传 false 恢复（退款后收回权益）。
+  static void setAdsRemoved(bool removed) {
+    if (adsRemoved.value == removed) return;
+    adsRemoved.value = removed;
+    SharedPreferences.getInstance().then((p) => p.setBool(_adsRemovedKey, removed));
+    _emit(AdEvent('ads_removed', AdHubFormat.banner, network: _provider?.name ?? '', message: '$removed'));
+  }
+
   static Future<void> init({required String appId, String asset = defaultAsset}) async {
     if (_started) return _ready.future;
     _started = true;
     try {
       final prefs = await SharedPreferences.getInstance();
+      if (prefs.getBool(_adsRemovedKey) == true) adsRemoved.value = true;
       AdHubConfig? cfg;
       try {
         cfg = _parse(await rootBundle.loadString(asset), appId);
@@ -217,6 +233,7 @@ class AdHub {
     if (p == null) return '配置里没有这个广告位（先在 ad-hub 仓库 config 里加）';
     if (expect != null && p.format != expect) return '广告位格式是 ${p.format.name}，不是 ${expect.name}';
     if (!p.enabled) return '广告位已关闭';
+    if (adsRemoved.value && p.format != AdHubFormat.rewarded) return '已购买去广告';
     return _capper!.check(p);
   }
 

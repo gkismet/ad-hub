@@ -11,7 +11,7 @@ dependencies:
     git:
       url: https://github.com/gkismet/ad-hub.git
       path: flutter
-      ref: v0.3.1        # 用 ad-hub 仓库的 tag
+      ref: v0.4.0        # 用 ad-hub 仓库的 tag
 flutter:
   assets:
     - assets/adhub_config.json
