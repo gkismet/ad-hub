@@ -17,3 +17,6 @@
   - Unity：`AdHub.ShowAppOpen(placement, onDone, waitLoadSec)`、`AdHub.EnableAppOpenOnResume(placement)`
   - 看广告/点广告引起的切后台，回来不会再弹开屏
 - `IAdProvider` / `AdProvider` 接口加了 `ShowAppOpen` / `showAppOpen`（只影响自己写适配层的人）
+
+## 0.3.1 — 2026-11-20
+- 修复：Flutter 用 git 依赖时，中文 Windows 上 `flutter pub get` 解析 ad_hub 的 pubspec 失败（description 改成纯英文）。v0.3.0 的 Flutter git 依赖不可用，请直接用 v0.3.1

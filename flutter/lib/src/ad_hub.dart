@@ -22,7 +22,7 @@ import 'provider.dart';
 
 class AdHub {
   AdHub._();
-  static const version = '0.3.0';
+  static const version = '0.3.1';
   static const defaultAsset = 'assets/adhub_config.json';
 
   static final _events = StreamController<AdEvent>.broadcast();

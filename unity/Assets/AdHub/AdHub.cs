@@ -15,7 +15,7 @@ namespace AdHubKit
 {
     public static class AdHub
     {
-        public const string Version = "0.3.0";
+        public const string Version = "0.3.1";
         const string ConfigResource = "adhub_config"; // Assets/Resources/adhub_config.json
 
         public static event Action<AdEvent> OnEvent;

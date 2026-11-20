@@ -11,7 +11,7 @@ dependencies:
     git:
       url: https://github.com/gkismet/ad-hub.git
       path: flutter
-      ref: v0.3.0        # 用 ad-hub 仓库的 tag
+      ref: v0.3.1        # 用 ad-hub 仓库的 tag
 flutter:
   assets:
     - assets/adhub_config.json
@@ -77,3 +77,4 @@ AdHub.enableAppOpenOnResume('app_resume');
 - Flutter 游戏（Flame 等）同样适用。
 - 项目路径里有中文时 `flutter build apk` 会失败（着色器编译器 impellerc 写不了文件，`android.overridePathCheck` 也绕不过去），项目要放在纯英文路径。
 - 个别 Windows 机器上 Gradle 报 `Unable to establish loopback connection`（JDK 21）：打包前设 `$env:_JAVA_OPTIONS="-Xss8m -Djdk.net.unixdomain.tmpdir=C:/Users/Public"`。
+- 改 ad-hub 的 `flutter/pubspec.yaml` 时只能写英文：项目用 git 依赖时 pub 在中文 Windows 上按 GBK 读它，有中文就解析失败。

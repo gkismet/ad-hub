@@ -1,6 +1,6 @@
 name: ad_hub
-description: 团队统一广告模块（AdMob / AppLovin MAX + 统一配置 + 频控 + 统一埋点）
-version: 0.3.0
+description: "Team ad module AdHub: AdMob / AppLovin MAX with shared config, frequency capping and unified events."
+version: 0.3.1
 publish_to: none
 
 environment:
