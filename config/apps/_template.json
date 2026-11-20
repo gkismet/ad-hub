@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "app": "your_app_id",
+  "owner": "负责同事名字",
+  "enabled": true,
+  "mediation": "max",
+  "maxSdkKey": "",
+  "testMode": true,
+  "units": {
+    "android": { "interstitial": "", "rewarded": "", "banner": "", "app_open": "" },
+    "ios": { "interstitial": "", "rewarded": "", "banner": "", "app_open": "" }
+  },
+  "global": {
+    "firstInterstitialDelaySec": 60,
+    "interstitialMinIntervalSec": 45,
+    "interstitialMaxPerSession": 20,
+    "interstitialMaxPerDay": 60,
+    "appOpenMinBackgroundSec": 30
+  },
+  "placements": [
+    { "name": "level_complete", "format": "interstitial", "enabled": true, "minIntervalSec": 0, "maxPerSession": 0, "maxPerDay": 0 },
+    { "name": "revive", "format": "rewarded", "enabled": true, "minIntervalSec": 0, "maxPerSession": 0, "maxPerDay": 0 },
+    { "name": "home_bottom", "format": "banner", "enabled": true, "minIntervalSec": 0, "maxPerSession": 0, "maxPerDay": 0 }
+  ]
+}

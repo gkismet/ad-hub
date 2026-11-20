@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "app": "adhub_flutter_demo",
+  "owner": "skill 测试用 demo",
+  "enabled": true,
+  "mediation": "max",
+  "maxSdkKey": "eDiKrDCFsZ60yJslfPlJRcHnNNQsXhVhOZcNz6HWbhVzNGyEELkxtsMe98JHW_-9UUEwsZeCeLqdUbB_allTET",
+  "testMode": true,
+  "units": {
+    "android": {
+      "interstitial": "16cab1aaa73de0e6",
+      "rewarded": "0bc5fff1bf30a087",
+      "banner": "07d8d55e3e9c23ee",
+      "app_open": "b754cc4e72e81caa"
+    },
+    "ios": {
+      "interstitial": "",
+      "rewarded": "",
+      "banner": "",
+      "app_open": ""
+    }
+  },
+  "global": {
+    "firstInterstitialDelaySec": 10,
+    "interstitialMinIntervalSec": 45,
+    "interstitialMaxPerSession": 20,
+    "interstitialMaxPerDay": 60,
+    "appOpenMinBackgroundSec": 30
+  },
+  "placements": [
+    {
+      "name": "level_complete",
+      "format": "interstitial",
+      "enabled": true,
+      "minIntervalSec": 0,
+      "maxPerSession": 0,
+      "maxPerDay": 0
+    },
+    {
+      "name": "level_retry",
+      "format": "interstitial",
+      "enabled": true,
+      "minIntervalSec": 120,
+      "maxPerSession": 5,
+      "maxPerDay": 0
+    },
+    {
+      "name": "revive",
+      "format": "rewarded",
+      "enabled": true,
+      "minIntervalSec": 0,
+      "maxPerSession": 0,
+      "maxPerDay": 0
+    },
+    {
+      "name": "double_coins",
+      "format": "rewarded",
+      "enabled": true,
+      "minIntervalSec": 0,
+      "maxPerSession": 0,
+      "maxPerDay": 10
+    },
+    {
+      "name": "home_bottom",
+      "format": "banner",
+      "enabled": true,
+      "minIntervalSec": 0,
+      "maxPerSession": 0,
+      "maxPerDay": 0
+    },
+    {
+      "name": "cold_start",
+      "format": "app_open",
+      "enabled": true,
+      "minIntervalSec": 0,
+      "maxPerSession": 0,
+      "maxPerDay": 0
+    },
+    {
+      "name": "app_resume",
+      "format": "app_open",
+      "enabled": true,
+      "minIntervalSec": 120,
+      "maxPerSession": 0,
+      "maxPerDay": 0
+    }
+  ]
+}

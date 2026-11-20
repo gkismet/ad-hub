@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "app": "demo_puzzle",
+  "owner": "示例",
+  "enabled": true,
+  "mediation": "admob",
+  "maxSdkKey": "",
+  "testMode": true,
+  "units": {
+    "android": {
+      "interstitial": "ca-app-pub-3940256099942544/1033173712",
+      "rewarded": "ca-app-pub-3940256099942544/5224354917",
+      "banner": "ca-app-pub-3940256099942544/6300978111"
+    },
+    "ios": {
+      "interstitial": "ca-app-pub-3940256099942544/4411468910",
+      "rewarded": "ca-app-pub-3940256099942544/1712485313",
+      "banner": "ca-app-pub-3940256099942544/2934735716"
+    }
+  },
+  "global": {
+    "firstInterstitialDelaySec": 60,
+    "interstitialMinIntervalSec": 45,
+    "interstitialMaxPerSession": 20,
+    "interstitialMaxPerDay": 60
+  },
+  "placements": [
+    { "name": "level_complete", "format": "interstitial", "enabled": true, "minIntervalSec": 0, "maxPerSession": 0, "maxPerDay": 0 },
+    { "name": "level_retry", "format": "interstitial", "enabled": true, "minIntervalSec": 120, "maxPerSession": 5, "maxPerDay": 0 },
+    { "name": "revive", "format": "rewarded", "enabled": true, "minIntervalSec": 0, "maxPerSession": 0, "maxPerDay": 0 },
+    { "name": "double_coins", "format": "rewarded", "enabled": true, "minIntervalSec": 0, "maxPerSession": 0, "maxPerDay": 10 },
+    { "name": "home_bottom", "format": "banner", "enabled": false, "minIntervalSec": 0, "maxPerSession": 0, "maxPerDay": 0 }
+  ]
+}

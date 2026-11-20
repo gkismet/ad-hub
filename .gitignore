@@ -1,0 +1,5 @@
+flutter/.dart_tool/
+flutter/build/
+flutter/pubspec.lock
+flutter/.flutter-plugins*
+__pycache__/
